@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{instance.title}}{{block.super}}{% endblock %}
+{% block stylesheet %}
+{% endblock %}
+{% block profile %}
+<div class="fh5co-bio">
+	<figure>
+		<img src="{{user.author_image.url}}" alt="Free HTML5 Bootstrap Template" class="img-responsive">
+	</figure>
+	<h3 class="heading">About Me</h3>
+	<h2>{{user.name.username}}</h2>
+  <h4>{{user.name.email}}</h4>
+	<p>{{user.details}}</p>
+	<ul class="fh5co-social">
+		<li><a href="#"><i class="icon-twitter"></i></a></li>
+		<li><a href="#"><i class="icon-facebook"></i></a></li>
+		<li><a href="#"><i class="icon-instagram"></i></a></li>
+	</ul>
+</div>
+{% endblock %}
+{% block content %}
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+ {% endif %}
+<div class="container">
+  <a href="{% url 'post_create' %}" class="btn btn-success pull pull-left glyphicon glyphicon-plus ">Add new post</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>Title</td>
+        <td>Action</td>
+      </tr>
+      <tbody>
+        {% for obj in post %}
+        <tr>
+          <td>{{obj.title}}</td>
+          <td>{{obj.created_date}}</td>
+          <td>
+            <a href="{% url 'post_delete' id=obj.id %}">Delete</a>||
+            <a href="{% url 'post_update' id=obj.id %}">Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </thead>
+  </table>
+</div>
+{% endblock %}
+{% block script %}{% endblock %}

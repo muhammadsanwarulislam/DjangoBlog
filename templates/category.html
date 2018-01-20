@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{instance.title}}{{block.super}}{% endblock %}
+{% block content %}
+<h1 class="container">Category:{{cat_id.name}}</h1>
+{% for obj in post %}
+		<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+			<figure>
+				<a href="{% url 'post_details' id=obj.id %}"><img src="{{obj.image.url}}" alt="Image" class="img-responsive"></a>
+			</figure>
+			<span class="fh5co-meta"><a href="{% url 'post_category' name=obj.category.name %}">{{obj.category.name}}</a></span>
+			<h2 class="fh5co-article-title"><a href="{% url 'post_details' id=obj.id %}">{{obj.title}}</a></h2>
+			<span class="fh5co-meta fh5co-date">{{obj.created_date}}</span>
+		</article>
+		<div class="clearfix visible-xs-block"></div>
+{% endfor %}
+{% endblock %}
+{% block script %}{% endblock %}
